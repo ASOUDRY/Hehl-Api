@@ -11,29 +11,26 @@ import jakarta.persistence.Table;
 @Table(name = "characterClass")
 public class CharacterClass {
     @Id
-    private String characterClass;
+    private String className;
 
     @OneToMany(mappedBy = "characterClass")
     private List<Characters> characters;
-
-    @OneToMany(mappedBy = "characterClass")
-    private List<Skills> skills;
 
     // Constructors
     public CharacterClass() {
     }
 
      public CharacterClass(String characterClass) {
-        this.characterClass = characterClass;
+        this.className = characterClass;
     }
 
     // Getters and Setters
     public String getCharacterClass() {
-        return characterClass;
+        return className;
     }
 
     public void setCharacterClass(String characterClass) {
-        this.characterClass = characterClass;
+        this.className = characterClass;
     }
 
     public List<Characters> getCharacters() {
@@ -42,13 +39,5 @@ public class CharacterClass {
 
     public void setCharacters(List<Characters> characters) {
         this.characters = characters;
-    }
-
-    public List<Skills> getSkills() {
-        return skills;
-    }
-
-    public void setSkills(List<Skills> skills) {
-        this.skills = skills;
     }
 }

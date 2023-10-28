@@ -39,7 +39,7 @@ public class Characters {
 
     // Define a one-to-one relationship to Player using characterName as the foreign key
     @ManyToOne
-    @JoinColumn(name = "characterClass", referencedColumnName = "characterClass")
+    @JoinColumn(name = "characterClass", referencedColumnName = "className")
     private CharacterClass characterClass;
 
     @OneToOne(mappedBy = "character")
@@ -49,12 +49,15 @@ public class Characters {
     public Characters() {
     }
 
-    public Characters(Character character) {
+    public Characters(Character character, CharacterClass cClass, User user) {
+        this.id = character.getId();
         this.characterName = character.getCharacterName();
         this.income = character.getIncome();
         this.hitpoints = character.getHitpoints();
         this.attack = character.getAttack();
         this.defense = character.getDefense();
+        this.characterClass = cClass;
+        this.user = user;
     }
     
 

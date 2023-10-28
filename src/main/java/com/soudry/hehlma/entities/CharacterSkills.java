@@ -1,30 +1,35 @@
 package com.soudry.hehlma.entities;
 
+import java.util.UUID;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-// import jakarta.persistence.OneToMany;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
-// import java.util.List;
+
 
 @Entity
 @Table(name = "characterSkills")
 public class CharacterSkills {
     @Id
-    private String id;
+    private String id = UUID.randomUUID().toString();;
 
-    @OneToOne
-    @JoinColumn(name = "character")
+    @ManyToOne
+    @JoinColumn(name = "character", referencedColumnName = "id")
     private Characters character;
 
     @ManyToOne
     @JoinColumn(name = "skills", referencedColumnName = "skillName")
     private Skills skills;
 
+       public CharacterSkills() {
+    }
+
     // Constructors
-    public CharacterSkills() {
+    public CharacterSkills(Characters c, Skills s) {
+        this.character = c;
+        this.skills = s;
     }
 
     // Getters and Setters

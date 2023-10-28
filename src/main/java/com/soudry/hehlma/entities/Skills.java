@@ -7,9 +7,9 @@ import jakarta.persistence.Table;
 import java.util.List;
 
 import jakarta.persistence.Column;
-import jakarta.persistence.ManyToOne;
+
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.JoinColumn;
+
 
 @Entity
 @Table(name = "skills")
@@ -36,9 +36,10 @@ public class Skills {
     private int tier;
 
     // Define a many-to-one relationship to CharacterClass using the "characterClass" foreign key
-    @ManyToOne
-    @JoinColumn(name = "characterClass", referencedColumnName = "characterClass")
-    private CharacterClass characterClass;
+    // @ManyToOne
+    // @JoinColumn(name = "characterClass", referencedColumnName = "className")
+    @Column(name = "characterClass")
+    private String characterClass;
 
     // @OneToMany(mappedBy = "characterSkills")
     // private List<Skills> skills;
@@ -107,11 +108,11 @@ public class Skills {
         this.ispassive = ispassive;
     }
 
-    public CharacterClass getCharacterClass() {
+    public String getCharacterClass() {
         return characterClass;
     }
 
-    public void setCharacterClass(CharacterClass characterClass) {
+    public void setCharacterClass(String characterClass) {
         this.characterClass = characterClass;
     }
 
