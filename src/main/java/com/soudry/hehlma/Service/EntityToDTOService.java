@@ -1,26 +1,39 @@
 package com.soudry.hehlma.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.soudry.hehlma.entities.Characters;
 import com.soudry.hehlma.entities.Skills;
 import com.soudry.hehlma.Models.Character;
 import com.soudry.hehlma.entities.User;
+import com.soudry.hehlma.repositories.SkillRepository;
 import com.soudry.hehlma.Models.Skill;
 
 @Service
 public class EntityToDTOService {
 
-    public List<Character> convertForm(User user) {
-       List<Characters> li = user.getCharacters();
-       List<Character> listOfCharacters = li.stream()
-        .map(EntityToDTOService::helperMethod)
+    private final SkillRepository skillRepository;
+
+    @Autowired
+    public EntityToDTOService(SkillRepository skillRepository) {
+        this.skillRepository = skillRepository;
+    }
+
+    public List<Character> retreiveCharacters(User user) {
+       List<Characters> list = user.getCharacters();
+       List<Character> listOfCharacters = list.stream()
+        .map((charbit) -> {
+        List<Skills> listOfSkills = skillRepository.getPersonalSkills(charbit.getCharacterName());
+        List<Skill> convertedSkills = convertSkills(listOfSkills);
+        return new Character(charbit.getId(),charbit.getCharacterName(),charbit.getAttack(), charbit.getDefense(), charbit.getHitpoints(), charbit.getCharacterClass().getCharacterClass(), charbit.getIncome(), convertedSkills);
+        }
+        )
         .collect(Collectors.toList());
-    return listOfCharacters;
+        return listOfCharacters;
     }
 
     public List<Skill> convertSkills(List<Skills> skills) {
@@ -30,14 +43,12 @@ public class EntityToDTOService {
     return processSkills;
     }
 
-     private static Character helperMethod(Characters charbit) {
-        List<Skill> placeholder = new ArrayList<>();
-        return new Character(charbit.getCharacterName(),charbit.getAttack(), charbit.getDefense(), charbit.getHitpoints(), charbit.getCharacterClass().getCharacterClass(), charbit.getIncome(), placeholder);
-    }
+     
 
        private static Skill skillsToSkill(Skills charbit) {
-        System.out.println(charbit.getName());
-        return new Skill(charbit.getAttack(), charbit.getDefense(), charbit.getHp(), charbit.getIspassive(), charbit.getPower());
+        Skill skill = new Skill(charbit.getName(),charbit.getAttack(), charbit.getDefense(), charbit.getHp(), charbit.getIspassive(), charbit.getPower());
+        System.out.println("The skills name is: " + skill.getName());
+        return skill;
     }
     
 }
