@@ -2,6 +2,7 @@ package com.soudry.hehlma.Models;
 
 public class Skill {
 
+    private String name;
     private int attack;
     private int defense;
     private int hp;
@@ -9,12 +10,20 @@ public class Skill {
     private String power;
 
     // Constructor that takes all the fields as parameters
-    public Skill(int attack, int defense, int hp, Boolean passive, String power) {
+    public Skill(String name, int attack, int defense, int hp, Boolean passive, String power) {
+        this.name = name;
         this.attack = attack;
         this.defense = defense;
         this.hp = hp;
         this.passive = passive;
         this.power = power;
+    }
+     public String getName() {
+        return this.name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public int getAttack() {

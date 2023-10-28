@@ -1,8 +1,13 @@
 package com.soudry.hehlma.Models;
 import java.util.List;
+import java.util.UUID;
 
 public class Character {
+
+    protected String id = "";
+
     protected String characterName = "";
+    
     private List<Skill> skill;
 
     protected int attack;
@@ -19,7 +24,8 @@ public class Character {
         
     }
 
-    public Character(String characterName, int attack, int defense, int hitpoints, String characterClass, int income, List<Skill> skill) {
+      public Character(String id, String characterName, int attack, int defense, int hitpoints, String characterClass, int income, List<Skill> skill) {
+        this.id = id;
         this.characterName = characterName;
         this.attack = attack;
         this.defense = defense;
@@ -28,6 +34,15 @@ public class Character {
         this.income = income;
         this.skill = skill;
     }
+
+     public String getId() {
+        return this.id;
+    }
+
+    public void generateNewId() {
+        this.id = UUID.randomUUID().toString();
+    }
+
 
     public String getCharacterName() {
         return characterName;
