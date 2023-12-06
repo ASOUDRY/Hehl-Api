@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 
 @RestController
 @RequestMapping("/login")
+@CrossOrigin(origins = "*", allowedHeaders = "*" )
 public class LoginController {
 
     private final LoginService loginService;

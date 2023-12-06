@@ -10,6 +10,7 @@ import com.soudry.hehlma.dtos.requests.CharacterRequest;
 
 @RestController
 @RequestMapping("/player")
+@CrossOrigin(origins = "*", allowedHeaders = "*" )
 public class CharacterController {
 
     private final CharacterService characterService;

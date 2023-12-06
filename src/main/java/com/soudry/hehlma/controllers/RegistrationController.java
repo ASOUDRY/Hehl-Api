@@ -12,6 +12,7 @@ import com.soudry.hehlma.dtos.responses.RegistrationAttempt;
 
 @RestController
 @RequestMapping("/registration")
+@CrossOrigin(origins = "*", allowedHeaders = "*" )
 public class RegistrationController {
 
     private final RegistrationService registrationService;
